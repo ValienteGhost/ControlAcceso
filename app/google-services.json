@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "37043821770",
+    "firebase_url": "https://controlacceso-a250f-default-rtdb.firebaseio.com",
+    "project_id": "controlacceso-a250f",
+    "storage_bucket": "controlacceso-a250f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37043821770:android:9eb7c7fa7270f41b536833",
+        "android_client_info": {
+          "package_name": "com.company.ControlAcceso"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9HHRirv6SqFz_qvCZHugwDmw9_QMgg-Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37043821770:android:d8a10c4a1123dbf2536833",
+        "android_client_info": {
+          "package_name": "com.example.controlacceso"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9HHRirv6SqFz_qvCZHugwDmw9_QMgg-Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
