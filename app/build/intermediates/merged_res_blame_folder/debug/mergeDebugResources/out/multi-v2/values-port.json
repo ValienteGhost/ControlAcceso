@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.controlacceso.app-mergeDebugResources-32:/values-port/values-port.xml",
+            "outputFile": "com.example.controlacceso.app-mergeDebugResources-33:/values-port/values-port.xml",
             "map": [
                 {
                     "source": "C:\\Users\\ignac\\.gradle\\caches\\9.0-milestone-1\\transforms\\d3d475c1264fd4bf644f93d10bc36226\\transformed\\appcompat-1.6.1\\res\\values-port\\values-port.xml",

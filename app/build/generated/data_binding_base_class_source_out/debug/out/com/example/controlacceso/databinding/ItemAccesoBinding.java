@@ -27,23 +27,27 @@ public final class ItemAccesoBinding implements ViewBinding {
   public final TextView txtCosto;
 
   @NonNull
-  public final TextView txtFecha;
+  public final TextView txtEstado;
 
   @NonNull
-  public final TextView txtTipo;
+  public final TextView txtFecha;
 
   @NonNull
   public final TextView txtUID;
 
+  @NonNull
+  public final TextView txtUserEmail;
+
   private ItemAccesoBinding(@NonNull ConstraintLayout rootView, @NonNull ImageButton btnDelete,
-      @NonNull TextView txtCosto, @NonNull TextView txtFecha, @NonNull TextView txtTipo,
-      @NonNull TextView txtUID) {
+      @NonNull TextView txtCosto, @NonNull TextView txtEstado, @NonNull TextView txtFecha,
+      @NonNull TextView txtUID, @NonNull TextView txtUserEmail) {
     this.rootView = rootView;
     this.btnDelete = btnDelete;
     this.txtCosto = txtCosto;
+    this.txtEstado = txtEstado;
     this.txtFecha = txtFecha;
-    this.txtTipo = txtTipo;
     this.txtUID = txtUID;
+    this.txtUserEmail = txtUserEmail;
   }
 
   @Override
@@ -85,15 +89,15 @@ public final class ItemAccesoBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.txtFecha;
-      TextView txtFecha = ViewBindings.findChildViewById(rootView, id);
-      if (txtFecha == null) {
+      id = R.id.txtEstado;
+      TextView txtEstado = ViewBindings.findChildViewById(rootView, id);
+      if (txtEstado == null) {
         break missingId;
       }
 
-      id = R.id.txtTipo;
-      TextView txtTipo = ViewBindings.findChildViewById(rootView, id);
-      if (txtTipo == null) {
+      id = R.id.txtFecha;
+      TextView txtFecha = ViewBindings.findChildViewById(rootView, id);
+      if (txtFecha == null) {
         break missingId;
       }
 
@@ -103,8 +107,14 @@ public final class ItemAccesoBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ItemAccesoBinding((ConstraintLayout) rootView, btnDelete, txtCosto, txtFecha,
-          txtTipo, txtUID);
+      id = R.id.txtUserEmail;
+      TextView txtUserEmail = ViewBindings.findChildViewById(rootView, id);
+      if (txtUserEmail == null) {
+        break missingId;
+      }
+
+      return new ItemAccesoBinding((ConstraintLayout) rootView, btnDelete, txtCosto, txtEstado,
+          txtFecha, txtUID, txtUserEmail);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

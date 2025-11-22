@@ -15,29 +15,38 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="UID: 123456" />
 
+    <!-- NUEVO TEXTVIEW PARA EL EMAIL -->
+    <TextView
+        android:id="@+id/txtUserEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtUID"
+        tools:text="usuario@ejemplo.com" />
+
     <TextView
         android:id="@+id/txtFecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtUID"
+        app:layout_constraintTop_toBottomOf="@+id/txtUserEmail"
         tools:text="Fecha: 2025-11-03 - 20:15:48" />
 
     <TextView
-        android:id="@+id/txtTipo"
+        android:id="@+id/txtEstado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtFecha"
-        tools:text="Tipo: Tarjeta" />
+        tools:text="Estado: Autorizado" />
 
     <TextView
         android:id="@+id/txtCosto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/teal_700"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +61,6 @@
         android:contentDescription="Eliminar acceso"
         android:src="@android:drawable/ic_menu_delete"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="?android:attr/textColorSecondary" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

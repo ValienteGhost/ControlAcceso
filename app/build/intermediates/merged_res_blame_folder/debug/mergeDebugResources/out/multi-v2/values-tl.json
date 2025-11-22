@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.controlacceso.app-mergeDebugResources-32:/values-tl/values-tl.xml",
+            "outputFile": "com.example.controlacceso.app-mergeDebugResources-33:/values-tl/values-tl.xml",
             "map": [
                 {
                     "source": "C:\\Users\\ignac\\.gradle\\caches\\9.0-milestone-1\\transforms\\7a9ed32776bc78af5863b841c770f1c8\\transformed\\jetified-play-services-basement-18.1.0\\res\\values-tl\\values.xml",

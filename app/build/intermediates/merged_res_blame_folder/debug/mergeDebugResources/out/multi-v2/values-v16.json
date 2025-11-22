@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.controlacceso.app-mergeDebugResources-32:/values-v16/values-v16.xml",
+            "outputFile": "com.example.controlacceso.app-mergeDebugResources-33:/values-v16/values-v16.xml",
             "map": [
                 {
                     "source": "C:\\Users\\ignac\\.gradle\\caches\\9.0-milestone-1\\transforms\\df24815bc934047054f15dc92521e174\\transformed\\core-1.12.0\\res\\values-v16\\values-v16.xml",

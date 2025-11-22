@@ -31,7 +31,8 @@
         android:label="@string/app_name"
         android:roundIcon="@android:drawable/sym_def_app_icon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ControlAcceso" >
+        android:theme="@style/Theme.ControlAcceso"
+        android:usesCleartextTraffic="true" >
         <activity
             android:name="com.example.controlacceso.MainActivity"
             android:exported="true" >
@@ -41,12 +42,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.controlacceso.PanelActivity" />
+        <activity android:name="com.example.controlacceso.RegisterActivity" />
         <activity
-            android:name="com.example.controlacceso.RegisterActivity"
-            android:exported="false" />
+            android:name="com.example.controlacceso.ArduinoControlActivity"
+            android:label="Control Arduino" />
         <activity
-            android:name="com.example.controlacceso.PanelActivity"
-            android:exported="false" />
+            android:name="com.example.controlacceso.TarjetasActivity"
+            android:exported="false"
+            android:label="Mis Tarjetas"
+            android:parentActivityName="com.example.controlacceso.PanelActivity" />
 
         <service
             android:name="com.google.firebase.components.ComponentDiscoveryService"

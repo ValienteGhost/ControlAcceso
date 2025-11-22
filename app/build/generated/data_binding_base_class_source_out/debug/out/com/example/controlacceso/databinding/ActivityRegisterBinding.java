@@ -25,6 +25,9 @@ public final class ActivityRegisterBinding implements ViewBinding {
   public final Button btnRegister;
 
   @NonNull
+  public final EditText etCardUid;
+
+  @NonNull
   public final TextView tvTitle;
 
   @NonNull
@@ -34,9 +37,11 @@ public final class ActivityRegisterBinding implements ViewBinding {
   public final EditText txtPassword;
 
   private ActivityRegisterBinding(@NonNull ConstraintLayout rootView, @NonNull Button btnRegister,
-      @NonNull TextView tvTitle, @NonNull EditText txtEmail, @NonNull EditText txtPassword) {
+      @NonNull EditText etCardUid, @NonNull TextView tvTitle, @NonNull EditText txtEmail,
+      @NonNull EditText txtPassword) {
     this.rootView = rootView;
     this.btnRegister = btnRegister;
+    this.etCardUid = etCardUid;
     this.tvTitle = tvTitle;
     this.txtEmail = txtEmail;
     this.txtPassword = txtPassword;
@@ -75,6 +80,12 @@ public final class ActivityRegisterBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.etCardUid;
+      EditText etCardUid = ViewBindings.findChildViewById(rootView, id);
+      if (etCardUid == null) {
+        break missingId;
+      }
+
       id = R.id.tvTitle;
       TextView tvTitle = ViewBindings.findChildViewById(rootView, id);
       if (tvTitle == null) {
@@ -93,8 +104,8 @@ public final class ActivityRegisterBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityRegisterBinding((ConstraintLayout) rootView, btnRegister, tvTitle,
-          txtEmail, txtPassword);
+      return new ActivityRegisterBinding((ConstraintLayout) rootView, btnRegister, etCardUid,
+          tvTitle, txtEmail, txtPassword);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

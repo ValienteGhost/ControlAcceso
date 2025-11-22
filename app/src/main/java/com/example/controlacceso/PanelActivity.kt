@@ -3,6 +3,7 @@ package com.example.controlacceso
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
@@ -14,7 +15,6 @@ import com.example.controlacceso.databinding.ActivityPanelBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.text.NumberFormat
-import java.text.SimpleDateFormat
 import java.util.*
 
 class PanelActivity : AppCompatActivity() {
@@ -26,7 +26,6 @@ class PanelActivity : AppCompatActivity() {
     private lateinit var adaptador: AccesoAdapter
     private lateinit var auth: FirebaseAuth
     private var currentBalance: Double = 0.0
-    private val TICKET_COST = 100.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,14 +47,13 @@ class PanelActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adaptador
 
-        setupBalanceListener()
-        setupAccessHistoryListener()
+        setupRealtimeListeners()
 
         binding.btnAddBalance.setOnClickListener { showBalanceDialog(true) }
         binding.btnSpendBalance.setOnClickListener { showBalanceDialog(false) }
     }
 
-    private fun setupBalanceListener() {
+    private fun setupRealtimeListeners() {
         userDatabase.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val balance = snapshot.child("balance").getValue(Double::class.java) ?: 0.0
@@ -64,45 +62,59 @@ class PanelActivity : AppCompatActivity() {
                 binding.tvBalance.text = format.format(balance)
             }
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@PanelActivity, "Error al cargar el saldo", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@PanelActivity, "Error al cargar saldo", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        accessDatabase.orderByChild("userId").equalTo(auth.currentUser!!.uid).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                updateAccessList(snapshot)
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@PanelActivity, "Error al cargar historial", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
-    private fun setupAccessHistoryListener() {
-        accessDatabase.orderByChild("uid").equalTo(auth.currentUser!!.uid).addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                listaAccesos.clear()
-                for (item in snapshot.children) {
-                    val acceso = item.getValue(RegistroAcceso::class.java)
-                    if (acceso != null) {
-                        acceso.id = item.key
-                        listaAccesos.add(acceso)
-                    }
-                }
-                listaAccesos.sortByDescending { it.fecha }
-                adaptador.notifyDataSetChanged()
+    private fun performManualRefresh() {
+        Toast.makeText(this, "Refrescando datos...", Toast.LENGTH_SHORT).show()
+
+        userDatabase.get().addOnSuccessListener { snapshot ->
+            val balance = snapshot.child("balance").getValue(Double::class.java) ?: 0.0
+            currentBalance = balance
+            val format = NumberFormat.getCurrencyInstance(Locale.US)
+            binding.tvBalance.text = format.format(balance)
+        }
+
+        accessDatabase.orderByChild("userId").equalTo(auth.currentUser!!.uid).get().addOnSuccessListener { snapshot ->
+            updateAccessList(snapshot)
+            Toast.makeText(this, "Historial actualizado", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun updateAccessList(snapshot: DataSnapshot) {
+        listaAccesos.clear()
+        for (item in snapshot.children) {
+            val acceso = item.getValue(RegistroAcceso::class.java)
+            if (acceso != null) {
+                acceso.id = item.key
+                listaAccesos.add(acceso)
             }
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@PanelActivity, "Error al cargar el historial", Toast.LENGTH_SHORT).show()
-            }
-        })
+        }
+        listaAccesos.sortByDescending { it.timestamp ?: 0 }
+        adaptador.notifyDataSetChanged()
     }
 
     private fun deleteAccess(acceso: RegistroAcceso) {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Confirmar Borrado")
-        builder.setMessage("¿Estás seguro de que quieres eliminar este registro de acceso?")
-        builder.setPositiveButton("Eliminar") { dialog, _ ->
-            acceso.id?.let {
-                accessDatabase.child(it).removeValue()
-                    .addOnSuccessListener { Toast.makeText(this@PanelActivity, "Registro eliminado", Toast.LENGTH_SHORT).show() }
-                    .addOnFailureListener { Toast.makeText(this@PanelActivity, "Error al eliminar", Toast.LENGTH_SHORT).show() }
+        AlertDialog.Builder(this)
+            .setTitle("Confirmar Borrado")
+            .setMessage("¿Estás seguro de que quieres eliminar este registro?")
+            .setPositiveButton("Eliminar") { dialog, _ ->
+                acceso.id?.let { accessDatabase.child(it).removeValue() }
+                dialog.dismiss()
             }
-            dialog.dismiss()
-        }
-        builder.setNegativeButton("Cancelar") { dialog, _ -> dialog.cancel() }
-        builder.show()
+            .setNegativeButton("Cancelar", null)
+            .show()
     }
 
     private fun showBalanceDialog(isAdding: Boolean) {
@@ -115,18 +127,17 @@ class PanelActivity : AppCompatActivity() {
         builder.setPositiveButton("Aceptar") { dialog, _ ->
             val amountStr = input.text.toString()
             if (amountStr.isNotEmpty()) {
-                val amount = amountStr.toDouble()
-                updateBalance(amount, isAdding)
+                updateBalance(amountStr.toDouble(), isAdding)
             }
             dialog.dismiss()
         }
-        builder.setNegativeButton("Cancelar") { dialog, _ -> dialog.cancel() }
+        builder.setNegativeButton("Cancelar", null)
         builder.show()
     }
 
     private fun updateBalance(amount: Double, isAdding: Boolean) {
         val newBalance = if (isAdding) currentBalance + amount else currentBalance - amount
-        if (newBalance < 0) {
+        if (newBalance < 0 && !isAdding) {
             Toast.makeText(this, "No tienes saldo suficiente", Toast.LENGTH_SHORT).show()
             return
         }
@@ -141,20 +152,15 @@ class PanelActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_refresh -> {
-                 Toast.makeText(this, "Datos actualizados", Toast.LENGTH_SHORT).show()
+                performManualRefresh()
                 true
             }
-            R.id.action_add_access -> {
-                if (currentBalance >= TICKET_COST) {
-                    updateBalance(TICKET_COST, isAdding = false)
-                    val userId = auth.currentUser!!.uid
-                    val fechaCompleta = SimpleDateFormat("yyyy-MM-dd - HH:mm:ss", Locale.getDefault()).format(Date())
-                    val nuevoAcceso = RegistroAcceso(uid = userId, fecha = fechaCompleta, tipo = "Web", costo = TICKET_COST)
-                    accessDatabase.push().setValue(nuevoAcceso.toMap())
-                    Toast.makeText(this, "Pasaje comprado y descontado", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(this, "No tienes saldo suficiente para comprar un pasaje", Toast.LENGTH_LONG).show()
-                }
+            R.id.action_tarjetas -> {
+                startActivity(Intent(this, TarjetasActivity::class.java))
+                true
+            }
+            R.id.action_arduino -> {
+                startActivity(Intent(this, ArduinoControlActivity::class.java))
                 true
             }
             R.id.action_logout -> {

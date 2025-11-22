@@ -2,6 +2,9 @@ package com.example.controlacceso
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +17,8 @@ class TarjetasActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private lateinit var recyclerView: RecyclerView
+    private lateinit var progressBar: ProgressBar
+    private lateinit var tvSinTarjetas: TextView
     private lateinit var tarjetasAdapter: TarjetasAdapter
     private val listaTarjetas = mutableListOf<Tarjeta>()
 
@@ -21,77 +26,98 @@ class TarjetasActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tarjetas)
 
+        supportActionBar?.title = "Mis Tarjetas RFID"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference
 
         recyclerView = findViewById(R.id.recyclerTarjetas)
+        progressBar = findViewById(R.id.progressBar)
+        tvSinTarjetas = findViewById(R.id.tvSinTarjetas)
+
         recyclerView.layoutManager = LinearLayoutManager(this)
         tarjetasAdapter = TarjetasAdapter(listaTarjetas)
         recyclerView.adapter = tarjetasAdapter
 
-        cargarTarjetasDelUsuario()
+        cargarTarjetas()
     }
 
-    private fun cargarTarjetasDelUsuario() {
+    private fun cargarTarjetas() {
         val userId = auth.currentUser?.uid
 
         if (userId == null) {
             Toast.makeText(this, "Error: Usuario no autenticado", Toast.LENGTH_SHORT).show()
+            finish()
             return
         }
 
-        Log.d("TarjetasActivity", "Cargando tarjetas para userId: $userId")
+        progressBar.visibility = View.VISIBLE
+        recyclerView.visibility = View.GONE
+        tvSinTarjetas.visibility = View.GONE
+
+        Log.d("TarjetasActivity", "Buscando tarjetas para userId: $userId")
 
         database.child("Tarjetas")
-            .orderByChild("userId")
-            .equalTo(userId)
-            .addValueEventListener(object : ValueEventListener {
+            .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     listaTarjetas.clear()
 
-                    Log.d("TarjetasActivity", "Tarjetas encontradas: ${snapshot.childrenCount}")
+                    Log.d("TarjetasActivity", "Total tarjetas en Firebase: ${snapshot.childrenCount}")
 
                     for (tarjetaSnapshot in snapshot.children) {
                         try {
-                            val uid = tarjetaSnapshot.key
-                            val nombre = tarjetaSnapshot.child("nombre").getValue(String::class.java)
-                            val activa = tarjetaSnapshot.child("activa").getValue(Boolean::class.java) ?: false
-                            val userIdValue = tarjetaSnapshot.child("userId").getValue(String::class.java)
+                            val tarjetaUserId = tarjetaSnapshot.child("userId").getValue(String::class.java)
+                            
+                            if (tarjetaUserId == userId) {
+                                val uid = tarjetaSnapshot.key
+                                val nombre = tarjetaSnapshot.child("nombre").getValue(String::class.java)
+                                val activa = tarjetaSnapshot.child("activa").getValue(Boolean::class.java) ?: true
 
-                            if (uid != null && nombre != null) {
-                                val tarjeta = Tarjeta(
-                                    uid = uid,
-                                    nombre = nombre,
-                                    activa = activa,
-                                    userId = userIdValue
-                                )
-                                listaTarjetas.add(tarjeta)
-                                Log.d("TarjetasActivity", "Tarjeta cargada: $nombre - $uid")
+                                if (uid != null) {
+                                    val tarjeta = Tarjeta(
+                                        uid = uid,
+                                        nombre = nombre ?: "Tarjeta sin nombre",
+                                        activa = activa,
+                                        userId = tarjetaUserId
+                                    )
+                                    listaTarjetas.add(tarjeta)
+                                    Log.d("TarjetasActivity", "Tarjeta encontrada: ${tarjeta.nombre} - $uid")
+                                }
                             }
                         } catch (e: Exception) {
                             Log.e("TarjetasActivity", "Error al parsear tarjeta", e)
                         }
                     }
 
-                    tarjetasAdapter.notifyDataSetChanged()
+                    progressBar.visibility = View.GONE
 
                     if (listaTarjetas.isEmpty()) {
-                        Toast.makeText(
-                            this@TarjetasActivity,
-                            "No tienes tarjetas registradas",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        tvSinTarjetas.visibility = View.VISIBLE
+                        recyclerView.visibility = View.GONE
+                    } else {
+                        tvSinTarjetas.visibility = View.GONE
+                        recyclerView.visibility = View.VISIBLE
+                        tarjetasAdapter.notifyDataSetChanged()
                     }
+
+                    Log.d("TarjetasActivity", "Total tarjetas del usuario: ${listaTarjetas.size}")
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Log.e("TarjetasActivity", "Error al cargar tarjetas", error.toException())
+                    progressBar.visibility = View.GONE
+                    Log.e("TarjetasActivity", "Error: ${error.message}", error.toException())
                     Toast.makeText(
                         this@TarjetasActivity,
-                        "Error: ${error.message}",
+                        "Error al cargar tarjetas: ${error.message}",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             })
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 }

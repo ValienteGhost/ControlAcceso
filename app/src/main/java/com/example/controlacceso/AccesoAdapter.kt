@@ -1,5 +1,6 @@
 package com.example.controlacceso
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -22,12 +23,21 @@ class AccesoAdapter(
 
     override fun onBindViewHolder(holder: AccesoViewHolder, position: Int) {
         val acceso = accesos[position]
-        holder.binding.txtUID.text = "UID: ${acceso.uid}"
-        holder.binding.txtFecha.text = "Fecha: ${acceso.fecha}"
-        holder.binding.txtTipo.text = "Tipo: ${acceso.tipo}"
+        
+        holder.binding.txtUID.text = "Tarjeta: ${acceso.uid ?: "N/A"}"
+        holder.binding.txtUserEmail.text = acceso.userEmail ?: "(sin email)"
+        holder.binding.txtFecha.text = "${acceso.fecha ?: ""} ${acceso.hora ?: ""}"
+        holder.binding.txtEstado.text = "${acceso.estado ?: "N/A"}"
 
         val format = NumberFormat.getCurrencyInstance(Locale.US)
         holder.binding.txtCosto.text = format.format(acceso.costo ?: 0.0)
+
+        val estadoColor = when {
+            acceso.estado?.contains("Autorizado", ignoreCase = true) == true -> Color.parseColor("#4CAF50")
+            acceso.estado?.contains("Denegado", ignoreCase = true) == true -> Color.parseColor("#F44336")
+            else -> Color.parseColor("#757575") // Gris por defecto
+        }
+        holder.binding.txtEstado.setTextColor(estadoColor)
 
         holder.binding.btnDelete.setOnClickListener {
             onDeleteClicked(acceso)

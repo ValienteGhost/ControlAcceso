@@ -7,10 +7,15 @@
         android:icon="@android:drawable/stat_notify_sync_noanim"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_add_access"
-        android:title="Añadir Acceso (Comprar Pasaje)"
-        android:icon="@android:drawable/ic_menu_add"
-        app:showAsAction="ifRoom" />
+        android:id="@+id/action_tarjetas"
+        android:title="Mis Tarjetas"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_arduino"
+        android:title="Control Arduino"
+        android:icon="@android:drawable/ic_menu_send"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_logout"
         android:title="Cerrar Sesión"

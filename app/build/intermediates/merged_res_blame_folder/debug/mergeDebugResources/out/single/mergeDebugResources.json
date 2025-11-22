@@ -1,38 +1,50 @@
 [
     {
-        "merged": "com.example.controlacceso.app-debug-34:/layout_item_acceso.xml.flat",
-        "source": "com.example.controlacceso.app-main-36:/layout/item_acceso.xml"
+        "merged": "com.example.controlacceso.app-debug-35:/layout_activity_register.xml.flat",
+        "source": "com.example.controlacceso.app-main-37:/layout/activity_register.xml"
     },
     {
-        "merged": "C:\\Users\\ignac\\.gradle\\daemon\\9.0-milestone-1\\com.example.controlacceso.app-debug-34:\\layout_item_acceso.xml.flat",
-        "source": "C:\\Users\\ignac\\.gradle\\daemon\\9.0-milestone-1\\com.example.controlacceso.app-main-36:\\layout\\item_acceso.xml"
+        "merged": "com.example.controlacceso.app-debug-35:/layout_activity_main.xml.flat",
+        "source": "com.example.controlacceso.app-main-37:/layout/activity_main.xml"
     },
     {
-        "merged": "C:\\Users\\ignac\\.gradle\\daemon\\9.0-milestone-1\\com.example.controlacceso.app-debug-34:\\xml_backup_rules.xml.flat",
-        "source": "C:\\Users\\ignac\\.gradle\\daemon\\9.0-milestone-1\\com.example.controlacceso.app-main-36:\\xml\\backup_rules.xml"
+        "merged": "com.example.controlacceso.app-debug-35:/layout_dialog_agregar_tarjeta.xml.flat",
+        "source": "com.example.controlacceso.app-main-37:/layout/dialog_agregar_tarjeta.xml"
     },
     {
-        "merged": "C:\\Users\\ignac\\.gradle\\daemon\\9.0-milestone-1\\com.example.controlacceso.app-debug-34:\\layout_activity_register.xml.flat",
-        "source": "C:\\Users\\ignac\\.gradle\\daemon\\9.0-milestone-1\\com.example.controlacceso.app-main-36:\\layout\\activity_register.xml"
+        "merged": "com.example.controlacceso.app-debug-35:/menu_panel_menu.xml.flat",
+        "source": "com.example.controlacceso.app-main-37:/menu/panel_menu.xml"
     },
     {
-        "merged": "C:\\Users\\ignac\\.gradle\\daemon\\9.0-milestone-1\\com.example.controlacceso.app-debug-34:\\xml_data_extraction_rules.xml.flat",
-        "source": "C:\\Users\\ignac\\.gradle\\daemon\\9.0-milestone-1\\com.example.controlacceso.app-main-36:\\xml\\data_extraction_rules.xml"
+        "merged": "com.example.controlacceso.app-debug-35:/layout_item_tarjeta.xml.flat",
+        "source": "com.example.controlacceso.app-main-37:/layout/item_tarjeta.xml"
     },
     {
-        "merged": "C:\\Users\\ignac\\.gradle\\daemon\\9.0-milestone-1\\com.example.controlacceso.app-debug-34:\\layout_activity_nuevo_acceso.xml.flat",
-        "source": "C:\\Users\\ignac\\.gradle\\daemon\\9.0-milestone-1\\com.example.controlacceso.app-main-36:\\layout\\activity_nuevo_acceso.xml"
+        "merged": "com.example.controlacceso.app-debug-35:/layout_activity_panel.xml.flat",
+        "source": "com.example.controlacceso.app-main-37:/layout/activity_panel.xml"
     },
     {
-        "merged": "C:\\Users\\ignac\\.gradle\\daemon\\9.0-milestone-1\\com.example.controlacceso.app-debug-34:\\layout_activity_panel.xml.flat",
-        "source": "C:\\Users\\ignac\\.gradle\\daemon\\9.0-milestone-1\\com.example.controlacceso.app-main-36:\\layout\\activity_panel.xml"
+        "merged": "com.example.controlacceso.app-debug-35:/layout_activity_arduino_control.xml.flat",
+        "source": "com.example.controlacceso.app-main-37:/layout/activity_arduino_control.xml"
     },
     {
-        "merged": "C:\\Users\\ignac\\.gradle\\daemon\\9.0-milestone-1\\com.example.controlacceso.app-debug-34:\\menu_panel_menu.xml.flat",
-        "source": "C:\\Users\\ignac\\.gradle\\daemon\\9.0-milestone-1\\com.example.controlacceso.app-main-36:\\menu\\panel_menu.xml"
+        "merged": "com.example.controlacceso.app-debug-35:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.controlacceso.app-main-37:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "C:\\Users\\ignac\\.gradle\\daemon\\9.0-milestone-1\\com.example.controlacceso.app-debug-34:\\layout_activity_main.xml.flat",
-        "source": "C:\\Users\\ignac\\.gradle\\daemon\\9.0-milestone-1\\com.example.controlacceso.app-main-36:\\layout\\activity_main.xml"
+        "merged": "com.example.controlacceso.app-debug-35:/layout_activity_nuevo_acceso.xml.flat",
+        "source": "com.example.controlacceso.app-main-37:/layout/activity_nuevo_acceso.xml"
+    },
+    {
+        "merged": "com.example.controlacceso.app-debug-35:/layout_item_acceso.xml.flat",
+        "source": "com.example.controlacceso.app-main-37:/layout/item_acceso.xml"
+    },
+    {
+        "merged": "com.example.controlacceso.app-debug-35:/xml_backup_rules.xml.flat",
+        "source": "com.example.controlacceso.app-main-37:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.example.controlacceso.app-debug-35:/layout_activity_tarjetas.xml.flat",
+        "source": "com.example.controlacceso.app-main-37:/layout/activity_tarjetas.xml"
     }
 ]

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.controlacceso.app-mergeDebugResources-32:/values-uz/values-uz.xml",
+            "outputFile": "com.example.controlacceso.app-mergeDebugResources-33:/values-uz/values-uz.xml",
             "map": [
                 {
                     "source": "C:\\Users\\ignac\\.gradle\\caches\\9.0-milestone-1\\transforms\\5313552c66a0ab770cbccfb16873c236\\transformed\\jetified-play-services-base-18.1.0\\res\\values-uz\\values.xml",
