@@ -4,48 +4,44 @@ package com.example.controlacceso.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.controlacceso.R;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
 
 public final class ActivityTarjetasBinding implements ViewBinding {
   @NonNull
-  private final RelativeLayout rootView;
+  private final CoordinatorLayout rootView;
 
   @NonNull
-  public final ProgressBar progressBar;
+  public final ExtendedFloatingActionButton btnAddTarjeta;
 
   @NonNull
-  public final RecyclerView recyclerTarjetas;
+  public final RecyclerView recyclerView;
 
   @NonNull
-  public final TextView tvSinTarjetas;
+  public final MaterialToolbar toolbar;
 
-  @NonNull
-  public final TextView tvTitulo;
-
-  private ActivityTarjetasBinding(@NonNull RelativeLayout rootView,
-      @NonNull ProgressBar progressBar, @NonNull RecyclerView recyclerTarjetas,
-      @NonNull TextView tvSinTarjetas, @NonNull TextView tvTitulo) {
+  private ActivityTarjetasBinding(@NonNull CoordinatorLayout rootView,
+      @NonNull ExtendedFloatingActionButton btnAddTarjeta, @NonNull RecyclerView recyclerView,
+      @NonNull MaterialToolbar toolbar) {
     this.rootView = rootView;
-    this.progressBar = progressBar;
-    this.recyclerTarjetas = recyclerTarjetas;
-    this.tvSinTarjetas = tvSinTarjetas;
-    this.tvTitulo = tvTitulo;
+    this.btnAddTarjeta = btnAddTarjeta;
+    this.recyclerView = recyclerView;
+    this.toolbar = toolbar;
   }
 
   @Override
   @NonNull
-  public RelativeLayout getRoot() {
+  public CoordinatorLayout getRoot() {
     return rootView;
   }
 
@@ -70,32 +66,26 @@ public final class ActivityTarjetasBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.progressBar;
-      ProgressBar progressBar = ViewBindings.findChildViewById(rootView, id);
-      if (progressBar == null) {
+      id = R.id.btnAddTarjeta;
+      ExtendedFloatingActionButton btnAddTarjeta = ViewBindings.findChildViewById(rootView, id);
+      if (btnAddTarjeta == null) {
         break missingId;
       }
 
-      id = R.id.recyclerTarjetas;
-      RecyclerView recyclerTarjetas = ViewBindings.findChildViewById(rootView, id);
-      if (recyclerTarjetas == null) {
+      id = R.id.recyclerView;
+      RecyclerView recyclerView = ViewBindings.findChildViewById(rootView, id);
+      if (recyclerView == null) {
         break missingId;
       }
 
-      id = R.id.tvSinTarjetas;
-      TextView tvSinTarjetas = ViewBindings.findChildViewById(rootView, id);
-      if (tvSinTarjetas == null) {
+      id = R.id.toolbar;
+      MaterialToolbar toolbar = ViewBindings.findChildViewById(rootView, id);
+      if (toolbar == null) {
         break missingId;
       }
 
-      id = R.id.tvTitulo;
-      TextView tvTitulo = ViewBindings.findChildViewById(rootView, id);
-      if (tvTitulo == null) {
-        break missingId;
-      }
-
-      return new ActivityTarjetasBinding((RelativeLayout) rootView, progressBar, recyclerTarjetas,
-          tvSinTarjetas, tvTitulo);
+      return new ActivityTarjetasBinding((CoordinatorLayout) rootView, btnAddTarjeta, recyclerView,
+          toolbar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

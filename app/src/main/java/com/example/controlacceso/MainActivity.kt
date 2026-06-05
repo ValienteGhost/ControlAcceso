@@ -19,24 +19,29 @@ class MainActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
+        // Si ya está logueado, ir directo al panel
+        if (auth.currentUser != null) {
+            startActivity(Intent(this, PanelActivity::class.java))
+            finish()
+        }
+
         binding.btnLogin.setOnClickListener {
             val email = binding.txtEmail.text.toString().trim()
             val password = binding.txtPassword.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Por favor, ingrese correo y contraseña.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.error_empty_fields, Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, R.string.login_success, Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, PanelActivity::class.java))
                         finish()
                     } else {
-                        Toast.makeText(baseContext, "Inicio de sesión inválido",
-                            Toast.LENGTH_LONG).show()
+                        Toast.makeText(baseContext, R.string.login_failed, Toast.LENGTH_LONG).show()
                     }
                 }
         }

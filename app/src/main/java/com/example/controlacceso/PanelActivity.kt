@@ -43,7 +43,9 @@ class PanelActivity : AppCompatActivity() {
         accessDatabase = FirebaseDatabase.getInstance().getReference("Accesos")
         userDatabase = FirebaseDatabase.getInstance().getReference("Users").child(userId)
 
-        adaptador = AccesoAdapter(listaAccesos) { acceso -> deleteAccess(acceso) }
+        setSupportActionBar(binding.toolbar)
+
+        adaptador = AccesoAdapter { acceso -> deleteAccess(acceso) }
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adaptador
 
@@ -93,27 +95,27 @@ class PanelActivity : AppCompatActivity() {
     }
 
     private fun updateAccessList(snapshot: DataSnapshot) {
-        listaAccesos.clear()
+        val nuevaLista = mutableListOf<RegistroAcceso>()
         for (item in snapshot.children) {
             val acceso = item.getValue(RegistroAcceso::class.java)
             if (acceso != null) {
                 acceso.id = item.key
-                listaAccesos.add(acceso)
+                nuevaLista.add(acceso)
             }
         }
-        listaAccesos.sortByDescending { it.timestamp ?: 0 }
-        adaptador.notifyDataSetChanged()
+        nuevaLista.sortByDescending { it.timestamp ?: 0 }
+        adaptador.submitList(nuevaLista)
     }
 
     private fun deleteAccess(acceso: RegistroAcceso) {
         AlertDialog.Builder(this)
-            .setTitle("Confirmar Borrado")
-            .setMessage("¿Estás seguro de que quieres eliminar este registro?")
-            .setPositiveButton("Eliminar") { dialog, _ ->
+            .setTitle(R.string.delete_confirm_title)
+            .setMessage(R.string.delete_confirm_msg)
+            .setPositiveButton(R.string.delete) { dialog, _ ->
                 acceso.id?.let { accessDatabase.child(it).removeValue() }
                 dialog.dismiss()
             }
-            .setNegativeButton("Cancelar", null)
+            .setNegativeButton(R.string.cancel, null)
             .show()
     }
 

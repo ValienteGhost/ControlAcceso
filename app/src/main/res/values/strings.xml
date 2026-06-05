@@ -1,4 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ControlAcceso</string>
+    <string name="app_name">Control de Acceso</string>
+    <string name="login_title">Control de Acceso</string>
+    <string name="email_hint">Correo electrónico</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="login_button">Iniciar sesión</string>
+    <string name="register_button">Registrar</string>
+
+    <string name="error_empty_fields">Por favor, ingrese correo y contraseña.</string>
+    <string name="login_success">Inicio de sesión exitoso</string>
+    <string name="login_failed">Inicio de sesión inválido</string>
+
+    <string name="balance_title">Saldo Actual</string>
+    <string name="add_balance">Añadir Saldo</string>
+    <string name="spend_balance">Gastar Saldo</string>
+    <string name="history_title">Historial de Accesos</string>
+
+    <string name="arduino_title">Control Arduino RFID</string>
+    <string name="arduino_config_section">Configuración Arduino</string>
+    <string name="arduino_ip_hint">IP del Arduino (ej: 192.168.1.105)</string>
+    <string name="save_ip">Guardar IP</string>
+    <string name="test_connection">Probar Conexión</string>
+    <string name="connection_status">Estado: %s</string>
+    <string name="manual_control_section">Control Manual</string>
+    <string name="uid_hint">UID (8 caracteres HEX)</string>
+    <string name="send_arduino">Enviar a Arduino</string>
+
+    <string name="delete_confirm_title">Confirmar Borrado</string>
+    <string name="delete_confirm_msg">¿Estás seguro de que quieres eliminar este registro?</string>
+    <string name="delete">Eliminar</string>
+    <string name="cancel">Cancelar</string>
+
+    <string name="error_loading_balance">Error al cargar saldo</string>
+    <string name="error_loading_history">Error al cargar historial</string>
+    <string name="refreshing_data">Refrescando datos...</string>
+    <string name="history_updated">Historial actualizado</string>
+    <string name="insufficient_balance">No tienes saldo suficiente</string>
+
+    <string name="card_label">Tarjeta: %s</string>
+    <string name="no_email">(sin email)</string>
+    <string name="status_label">Estado: %s</string>
+
+    <string name="authorized">Autorizado</string>
+    <string name="denied">Denegado</string>
 </resources>

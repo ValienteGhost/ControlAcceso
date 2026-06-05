@@ -4,8 +4,6 @@ package com.example.controlacceso.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +11,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.controlacceso.R;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -22,26 +23,35 @@ public final class ActivityMainBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
-  public final Button btnLogin;
+  public final MaterialButton btnLogin;
 
   @NonNull
-  public final Button btnRegister;
+  public final MaterialButton btnRegister;
+
+  @NonNull
+  public final TextInputLayout tilEmail;
+
+  @NonNull
+  public final TextInputLayout tilPassword;
 
   @NonNull
   public final TextView tvTitle;
 
   @NonNull
-  public final EditText txtEmail;
+  public final TextInputEditText txtEmail;
 
   @NonNull
-  public final EditText txtPassword;
+  public final TextInputEditText txtPassword;
 
-  private ActivityMainBinding(@NonNull ConstraintLayout rootView, @NonNull Button btnLogin,
-      @NonNull Button btnRegister, @NonNull TextView tvTitle, @NonNull EditText txtEmail,
-      @NonNull EditText txtPassword) {
+  private ActivityMainBinding(@NonNull ConstraintLayout rootView, @NonNull MaterialButton btnLogin,
+      @NonNull MaterialButton btnRegister, @NonNull TextInputLayout tilEmail,
+      @NonNull TextInputLayout tilPassword, @NonNull TextView tvTitle,
+      @NonNull TextInputEditText txtEmail, @NonNull TextInputEditText txtPassword) {
     this.rootView = rootView;
     this.btnLogin = btnLogin;
     this.btnRegister = btnRegister;
+    this.tilEmail = tilEmail;
+    this.tilPassword = tilPassword;
     this.tvTitle = tvTitle;
     this.txtEmail = txtEmail;
     this.txtPassword = txtPassword;
@@ -75,14 +85,26 @@ public final class ActivityMainBinding implements ViewBinding {
     int id;
     missingId: {
       id = R.id.btnLogin;
-      Button btnLogin = ViewBindings.findChildViewById(rootView, id);
+      MaterialButton btnLogin = ViewBindings.findChildViewById(rootView, id);
       if (btnLogin == null) {
         break missingId;
       }
 
       id = R.id.btnRegister;
-      Button btnRegister = ViewBindings.findChildViewById(rootView, id);
+      MaterialButton btnRegister = ViewBindings.findChildViewById(rootView, id);
       if (btnRegister == null) {
+        break missingId;
+      }
+
+      id = R.id.tilEmail;
+      TextInputLayout tilEmail = ViewBindings.findChildViewById(rootView, id);
+      if (tilEmail == null) {
+        break missingId;
+      }
+
+      id = R.id.tilPassword;
+      TextInputLayout tilPassword = ViewBindings.findChildViewById(rootView, id);
+      if (tilPassword == null) {
         break missingId;
       }
 
@@ -93,19 +115,19 @@ public final class ActivityMainBinding implements ViewBinding {
       }
 
       id = R.id.txtEmail;
-      EditText txtEmail = ViewBindings.findChildViewById(rootView, id);
+      TextInputEditText txtEmail = ViewBindings.findChildViewById(rootView, id);
       if (txtEmail == null) {
         break missingId;
       }
 
       id = R.id.txtPassword;
-      EditText txtPassword = ViewBindings.findChildViewById(rootView, id);
+      TextInputEditText txtPassword = ViewBindings.findChildViewById(rootView, id);
       if (txtPassword == null) {
         break missingId;
       }
 
-      return new ActivityMainBinding((ConstraintLayout) rootView, btnLogin, btnRegister, tvTitle,
-          txtEmail, txtPassword);
+      return new ActivityMainBinding((ConstraintLayout) rootView, btnLogin, btnRegister, tilEmail,
+          tilPassword, tvTitle, txtEmail, txtPassword);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -58,7 +58,7 @@ class RegisterActivity : AppCompatActivity() {
                     val userId = user!!.uid
                     
                     val userProfile = mapOf("email" to email, "balance" to 0)
-                    val tarjeta = Tarjeta(uid = cardUid, userId = userId, nombre = "Tarjeta Principal", activa = true)
+                    val tarjeta = Tarjeta(uid = cardUid, userId = userId, alias = "Tarjeta Principal", activa = true)
 
                     val childUpdates = hashMapOf<
                         String, Any>(

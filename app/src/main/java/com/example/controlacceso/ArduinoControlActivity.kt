@@ -32,6 +32,10 @@ class ArduinoControlActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance().getReference("Accesos")
         binding.etArduinoIP.setText(prefs.getString("arduino_ip", ""))
 
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.toolbar.setNavigationOnClickListener { onBackPressed() }
+
         setupListeners()
     }
 
@@ -180,9 +184,9 @@ class ArduinoControlActivity : AppCompatActivity() {
     private fun updateEstadoConexion(mensaje: String, exito: Boolean) {
         binding.tvEstadoConexion.text = mensaje
         val color = if (exito) {
-            getColor(R.color.teal_700)
+            getColor(R.color.success_green)
         } else {
-            getColor(R.color.red_dark)
+            getColor(R.color.error)
         }
         binding.tvEstadoConexion.setTextColor(color)
     }

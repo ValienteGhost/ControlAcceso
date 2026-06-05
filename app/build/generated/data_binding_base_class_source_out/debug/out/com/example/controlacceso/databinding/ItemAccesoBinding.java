@@ -4,30 +4,31 @@ package com.example.controlacceso.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.controlacceso.R;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.chip.Chip;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
 
 public final class ItemAccesoBinding implements ViewBinding {
   @NonNull
-  private final ConstraintLayout rootView;
+  private final MaterialCardView rootView;
 
   @NonNull
-  public final ImageButton btnDelete;
+  public final MaterialButton btnDelete;
+
+  @NonNull
+  public final Chip chipEstado;
 
   @NonNull
   public final TextView txtCosto;
-
-  @NonNull
-  public final TextView txtEstado;
 
   @NonNull
   public final TextView txtFecha;
@@ -38,13 +39,13 @@ public final class ItemAccesoBinding implements ViewBinding {
   @NonNull
   public final TextView txtUserEmail;
 
-  private ItemAccesoBinding(@NonNull ConstraintLayout rootView, @NonNull ImageButton btnDelete,
-      @NonNull TextView txtCosto, @NonNull TextView txtEstado, @NonNull TextView txtFecha,
+  private ItemAccesoBinding(@NonNull MaterialCardView rootView, @NonNull MaterialButton btnDelete,
+      @NonNull Chip chipEstado, @NonNull TextView txtCosto, @NonNull TextView txtFecha,
       @NonNull TextView txtUID, @NonNull TextView txtUserEmail) {
     this.rootView = rootView;
     this.btnDelete = btnDelete;
+    this.chipEstado = chipEstado;
     this.txtCosto = txtCosto;
-    this.txtEstado = txtEstado;
     this.txtFecha = txtFecha;
     this.txtUID = txtUID;
     this.txtUserEmail = txtUserEmail;
@@ -52,7 +53,7 @@ public final class ItemAccesoBinding implements ViewBinding {
 
   @Override
   @NonNull
-  public ConstraintLayout getRoot() {
+  public MaterialCardView getRoot() {
     return rootView;
   }
 
@@ -78,20 +79,20 @@ public final class ItemAccesoBinding implements ViewBinding {
     int id;
     missingId: {
       id = R.id.btnDelete;
-      ImageButton btnDelete = ViewBindings.findChildViewById(rootView, id);
+      MaterialButton btnDelete = ViewBindings.findChildViewById(rootView, id);
       if (btnDelete == null) {
+        break missingId;
+      }
+
+      id = R.id.chipEstado;
+      Chip chipEstado = ViewBindings.findChildViewById(rootView, id);
+      if (chipEstado == null) {
         break missingId;
       }
 
       id = R.id.txtCosto;
       TextView txtCosto = ViewBindings.findChildViewById(rootView, id);
       if (txtCosto == null) {
-        break missingId;
-      }
-
-      id = R.id.txtEstado;
-      TextView txtEstado = ViewBindings.findChildViewById(rootView, id);
-      if (txtEstado == null) {
         break missingId;
       }
 
@@ -113,7 +114,7 @@ public final class ItemAccesoBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ItemAccesoBinding((ConstraintLayout) rootView, btnDelete, txtCosto, txtEstado,
+      return new ItemAccesoBinding((MaterialCardView) rootView, btnDelete, chipEstado, txtCosto,
           txtFecha, txtUID, txtUserEmail);
     }
     String missingId = rootView.getResources().getResourceName(id);

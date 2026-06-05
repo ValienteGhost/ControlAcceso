@@ -4,44 +4,49 @@ package com.example.controlacceso.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.controlacceso.R;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
 
 public final class ActivityArduinoControlBinding implements ViewBinding {
   @NonNull
-  private final ScrollView rootView;
+  private final CoordinatorLayout rootView;
 
   @NonNull
-  public final Button btnEnviarArduino;
+  public final MaterialButton btnEnviarArduino;
 
   @NonNull
-  public final Button btnGuardarIP;
+  public final MaterialButton btnGuardarIP;
 
   @NonNull
-  public final Button btnTestConexion;
+  public final MaterialButton btnTestConexion;
 
   @NonNull
-  public final EditText etArduinoIP;
+  public final TextInputEditText etArduinoIP;
 
   @NonNull
-  public final EditText etUidManual;
+  public final TextInputEditText etUidManual;
+
+  @NonNull
+  public final MaterialToolbar toolbar;
 
   @NonNull
   public final TextView tvEstadoConexion;
 
-  private ActivityArduinoControlBinding(@NonNull ScrollView rootView,
-      @NonNull Button btnEnviarArduino, @NonNull Button btnGuardarIP,
-      @NonNull Button btnTestConexion, @NonNull EditText etArduinoIP, @NonNull EditText etUidManual,
+  private ActivityArduinoControlBinding(@NonNull CoordinatorLayout rootView,
+      @NonNull MaterialButton btnEnviarArduino, @NonNull MaterialButton btnGuardarIP,
+      @NonNull MaterialButton btnTestConexion, @NonNull TextInputEditText etArduinoIP,
+      @NonNull TextInputEditText etUidManual, @NonNull MaterialToolbar toolbar,
       @NonNull TextView tvEstadoConexion) {
     this.rootView = rootView;
     this.btnEnviarArduino = btnEnviarArduino;
@@ -49,12 +54,13 @@ public final class ActivityArduinoControlBinding implements ViewBinding {
     this.btnTestConexion = btnTestConexion;
     this.etArduinoIP = etArduinoIP;
     this.etUidManual = etUidManual;
+    this.toolbar = toolbar;
     this.tvEstadoConexion = tvEstadoConexion;
   }
 
   @Override
   @NonNull
-  public ScrollView getRoot() {
+  public CoordinatorLayout getRoot() {
     return rootView;
   }
 
@@ -80,32 +86,38 @@ public final class ActivityArduinoControlBinding implements ViewBinding {
     int id;
     missingId: {
       id = R.id.btnEnviarArduino;
-      Button btnEnviarArduino = ViewBindings.findChildViewById(rootView, id);
+      MaterialButton btnEnviarArduino = ViewBindings.findChildViewById(rootView, id);
       if (btnEnviarArduino == null) {
         break missingId;
       }
 
       id = R.id.btnGuardarIP;
-      Button btnGuardarIP = ViewBindings.findChildViewById(rootView, id);
+      MaterialButton btnGuardarIP = ViewBindings.findChildViewById(rootView, id);
       if (btnGuardarIP == null) {
         break missingId;
       }
 
       id = R.id.btnTestConexion;
-      Button btnTestConexion = ViewBindings.findChildViewById(rootView, id);
+      MaterialButton btnTestConexion = ViewBindings.findChildViewById(rootView, id);
       if (btnTestConexion == null) {
         break missingId;
       }
 
       id = R.id.etArduinoIP;
-      EditText etArduinoIP = ViewBindings.findChildViewById(rootView, id);
+      TextInputEditText etArduinoIP = ViewBindings.findChildViewById(rootView, id);
       if (etArduinoIP == null) {
         break missingId;
       }
 
       id = R.id.etUidManual;
-      EditText etUidManual = ViewBindings.findChildViewById(rootView, id);
+      TextInputEditText etUidManual = ViewBindings.findChildViewById(rootView, id);
       if (etUidManual == null) {
+        break missingId;
+      }
+
+      id = R.id.toolbar;
+      MaterialToolbar toolbar = ViewBindings.findChildViewById(rootView, id);
+      if (toolbar == null) {
         break missingId;
       }
 
@@ -115,8 +127,8 @@ public final class ActivityArduinoControlBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityArduinoControlBinding((ScrollView) rootView, btnEnviarArduino,
-          btnGuardarIP, btnTestConexion, etArduinoIP, etUidManual, tvEstadoConexion);
+      return new ActivityArduinoControlBinding((CoordinatorLayout) rootView, btnEnviarArduino,
+          btnGuardarIP, btnTestConexion, etArduinoIP, etUidManual, toolbar, tvEstadoConexion);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

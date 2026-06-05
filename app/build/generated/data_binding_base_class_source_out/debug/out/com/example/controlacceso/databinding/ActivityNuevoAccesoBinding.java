@@ -4,38 +4,44 @@ package com.example.controlacceso.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.controlacceso.R;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
 
 public final class ActivityNuevoAccesoBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final CoordinatorLayout rootView;
 
   @NonNull
-  public final Button btnGuardar;
+  public final MaterialButton btnGuardar;
 
   @NonNull
-  public final EditText txtEstado;
+  public final MaterialToolbar toolbar;
 
-  private ActivityNuevoAccesoBinding(@NonNull LinearLayout rootView, @NonNull Button btnGuardar,
-      @NonNull EditText txtEstado) {
+  @NonNull
+  public final TextInputEditText txtEstado;
+
+  private ActivityNuevoAccesoBinding(@NonNull CoordinatorLayout rootView,
+      @NonNull MaterialButton btnGuardar, @NonNull MaterialToolbar toolbar,
+      @NonNull TextInputEditText txtEstado) {
     this.rootView = rootView;
     this.btnGuardar = btnGuardar;
+    this.toolbar = toolbar;
     this.txtEstado = txtEstado;
   }
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public CoordinatorLayout getRoot() {
     return rootView;
   }
 
@@ -61,18 +67,25 @@ public final class ActivityNuevoAccesoBinding implements ViewBinding {
     int id;
     missingId: {
       id = R.id.btnGuardar;
-      Button btnGuardar = ViewBindings.findChildViewById(rootView, id);
+      MaterialButton btnGuardar = ViewBindings.findChildViewById(rootView, id);
       if (btnGuardar == null) {
         break missingId;
       }
 
+      id = R.id.toolbar;
+      MaterialToolbar toolbar = ViewBindings.findChildViewById(rootView, id);
+      if (toolbar == null) {
+        break missingId;
+      }
+
       id = R.id.txtEstado;
-      EditText txtEstado = ViewBindings.findChildViewById(rootView, id);
+      TextInputEditText txtEstado = ViewBindings.findChildViewById(rootView, id);
       if (txtEstado == null) {
         break missingId;
       }
 
-      return new ActivityNuevoAccesoBinding((LinearLayout) rootView, btnGuardar, txtEstado);
+      return new ActivityNuevoAccesoBinding((CoordinatorLayout) rootView, btnGuardar, toolbar,
+          txtEstado);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

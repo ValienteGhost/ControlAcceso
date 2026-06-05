@@ -4,48 +4,54 @@ package com.example.controlacceso.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.controlacceso.R;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
 
 public final class ActivityPanelBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final CoordinatorLayout rootView;
 
   @NonNull
-  public final Button btnAddBalance;
+  public final MaterialButton btnAddBalance;
 
   @NonNull
-  public final Button btnSpendBalance;
+  public final MaterialButton btnSpendBalance;
 
   @NonNull
   public final RecyclerView recyclerView;
 
   @NonNull
+  public final MaterialToolbar toolbar;
+
+  @NonNull
   public final TextView tvBalance;
 
-  private ActivityPanelBinding(@NonNull LinearLayout rootView, @NonNull Button btnAddBalance,
-      @NonNull Button btnSpendBalance, @NonNull RecyclerView recyclerView,
+  private ActivityPanelBinding(@NonNull CoordinatorLayout rootView,
+      @NonNull MaterialButton btnAddBalance, @NonNull MaterialButton btnSpendBalance,
+      @NonNull RecyclerView recyclerView, @NonNull MaterialToolbar toolbar,
       @NonNull TextView tvBalance) {
     this.rootView = rootView;
     this.btnAddBalance = btnAddBalance;
     this.btnSpendBalance = btnSpendBalance;
     this.recyclerView = recyclerView;
+    this.toolbar = toolbar;
     this.tvBalance = tvBalance;
   }
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public CoordinatorLayout getRoot() {
     return rootView;
   }
 
@@ -71,13 +77,13 @@ public final class ActivityPanelBinding implements ViewBinding {
     int id;
     missingId: {
       id = R.id.btnAddBalance;
-      Button btnAddBalance = ViewBindings.findChildViewById(rootView, id);
+      MaterialButton btnAddBalance = ViewBindings.findChildViewById(rootView, id);
       if (btnAddBalance == null) {
         break missingId;
       }
 
       id = R.id.btnSpendBalance;
-      Button btnSpendBalance = ViewBindings.findChildViewById(rootView, id);
+      MaterialButton btnSpendBalance = ViewBindings.findChildViewById(rootView, id);
       if (btnSpendBalance == null) {
         break missingId;
       }
@@ -88,14 +94,20 @@ public final class ActivityPanelBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.toolbar;
+      MaterialToolbar toolbar = ViewBindings.findChildViewById(rootView, id);
+      if (toolbar == null) {
+        break missingId;
+      }
+
       id = R.id.tvBalance;
       TextView tvBalance = ViewBindings.findChildViewById(rootView, id);
       if (tvBalance == null) {
         break missingId;
       }
 
-      return new ActivityPanelBinding((LinearLayout) rootView, btnAddBalance, btnSpendBalance,
-          recyclerView, tvBalance);
+      return new ActivityPanelBinding((CoordinatorLayout) rootView, btnAddBalance, btnSpendBalance,
+          recyclerView, toolbar, tvBalance);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

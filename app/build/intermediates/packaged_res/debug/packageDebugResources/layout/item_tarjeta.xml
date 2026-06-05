@@ -1,69 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="?attr/colorOutlineVariant">
 
-    <LinearLayout
-        android:id="@+id/info_layout"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/switchActiva"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/imgCard"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@android:drawable/ic_menu_agenda"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?attr/colorPrimary" />
 
         <TextView
-            android:id="@+id/tvNombreTarjeta"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtAlias"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Tarjeta Principal"
-            android:textSize="18sp"
+            android:layout_marginStart="16dp"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
             android:textStyle="bold"
-            android:textColor="@android:color/white"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgCard"
+            app:layout_constraintTop_toTopOf="@+id/imgCard"
+            tools:text="Mi Tarjeta" />
 
         <TextView
-            android:id="@+id/tvUidTarjeta"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtUID"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="UID: 337FBD27"
-            android:textSize="14sp"
-            android:textColor="#AFAFAF" 
-            android:fontFamily="monospace"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginStart="16dp"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgCard"
+            app:layout_constraintTop_toBottomOf="@+id/txtAlias"
+            tools:text="UID: ABC12345" />
 
-        <TextView
-            android:id="@+id/tvEstadoTarjeta"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDelete"
+            style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="● Activa"
-            android:textSize="14sp"
-            android:textStyle="bold"
             android:layout_marginTop="8dp"
-            tools:textColor="#4CAF50"/>
-    </LinearLayout>
+            app:icon="@android:drawable/ic_menu_delete"
+            app:iconTint="?attr/colorError"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtUID" />
 
-    <ImageButton
-        android:id="@+id/btnEliminarTarjeta"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@android:drawable/ic_menu_delete"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Eliminar Tarjeta"
-        app:tint="#AFAFAF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switchActiva"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/btnEliminarTarjeta"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
